@@ -1,18 +1,15 @@
+// Nome: Victor Picussa GRR: 20163068
+
 import java.util.ArrayList;
+
 /*
   =============================================================================
-  @ Main Program
+  @ Component classes
   =============================================================================
 */
-class Program {
-  public static void main(String[] args) {
-
-  }
-}
-
 /*
   =============================================================================
-  @ Music, Album and Playlist classes
+  @ Music
   =============================================================================
 */
 class Music extends Component
@@ -34,11 +31,16 @@ class Music extends Component
     return this.style;
   }
 
-  public String getDuration() {
+  public int getDuration() {
     return this.duration;
   }
 }
 
+/*
+  =============================================================================
+  @ Album
+  =============================================================================
+*/
 class Album extends Component
 {
   protected String name, band, style;
@@ -56,7 +58,7 @@ class Album extends Component
   }
 
   public String getBand() {
-    return this.band
+    return this.band;
   }
 
   public String getStyle() {
@@ -71,11 +73,20 @@ class Album extends Component
     this.musics.remove(music);
   }
 
+  public int getMusicSize() {
+    return this.musics.size();
+  }
+
   public Music getComponent(int componentIndex) {
     return this.musics.get(componentIndex);
   }
 }
 
+/*
+  =============================================================================
+  @ Playlist
+  =============================================================================
+*/
 class Playlist extends Component
 {
   protected String name, primaryStyle, secondaryStyle;
@@ -108,19 +119,28 @@ class Playlist extends Component
     this.albuns.remove(album);
   }
 
+  public int getAlbumSize() {
+    return this.albuns.size();
+  }
+
   public Album getComponent(int componentIndex) {
     return this.albuns.get(componentIndex);
   }
 }
 
+/*
+  =============================================================================
+  @ Directory
+  =============================================================================
+*/
 class Directory extends Component implements DirectoryElement
 {
-  String name;
+  protected String name;
   protected ArrayList<Playlist> playlists;
 
   public Directory(String name) {
     this.name = name;
-    this.playlists = ArrayList<>();
+    this.playlists = new ArrayList<>();
   }
 
   public String getName() {
@@ -133,6 +153,10 @@ class Directory extends Component implements DirectoryElement
 
   public void remove(Playlist playlist) {
     this.playlists.remove(playlist);
+  }
+
+  public int getPlaylistSize() {
+    return this.playlists.size();
   }
 
   public Playlist getComponent(int componentIndex) {
@@ -165,80 +189,4 @@ abstract class Component
   public Component getComponent(int componentIndex) {
     throw new UnsupportedOperationException();
   }
-}
-
-/*
-  =============================================================================
-  @ Singleton classes
-  =============================================================================
-*/
-class Singleton
-{
-  private static Singleton firstInstance = null;
-
-  private Singleton() {}
-
-  public static Singleton getInstance() {
-    if(firstInstance == null)
-      firstInstance = new Singleton();
-
-    return firstInstance;
-  }
-}
-
-/*
-  =============================================================================
-  @ Visitor classes
-  =============================================================================
-*/
-interface DirectoryElementVisitor
-{
-  public void visit(Directory list);
-}
-
-interface DirectoryElement
-{
-  public void accept(DirectoryElementVisitor visitor);
-}
-
-class ListAllVisitor implements DirectoryElementVisitor
-{
- public void visit(Directory directory)
- {
-   for (directory.playlists : playlist) {
-     System.out.println(playlist.getName() + ' ' + playlist.getPrimaryStyle() + ' ' + playlist.getSecondaryStyle());
-     for (playlist.albuns : album) {
-       System.out.println(album.getName() + ' ' + album.getStyle());
-       for (album.musics : music)
-        System.out.println(music.getName() + ' ' music.getStyle());
-     }
-   }
- }
-}
-
-class ListStyleMusicsVisitor implements DirectoryElementVisitor
-{
- public void visit(Directory directory, String style)
- {
-   for (directory.playlists : playlist) {
-     if (playlist.getPrimaryStyle() == style OU playlist.getSecondaryStyle() == style)
-       for (playlist.albuns : album) {
-         if (playlist.getStyle() == style)
-           for (album.musics : music)
-            System.out.println(music.getName() + ' ' music.getStyle());
- }
-}
-
-class ListThreeMinutesVisitor implements DirectoryElementVisitor
-{
- public void visit(Directory directory, String style)
- {
-   for (directory.playlists : playlist) {
-     if (playlist.getPrimaryStyle() == style OU playlist.getSecondaryStyle() == style)
-       for (playlist.albuns : album) {
-         if (playlist.getStyle() == style)
-           for (album.musics : music)
-            if (music.getDuration() >= 180)
-              System.out.println(music.getName() + ' ' music.getStyle());
- }
 }
