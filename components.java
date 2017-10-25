@@ -91,12 +91,14 @@ class Playlist extends Component
 {
   protected String name, primaryStyle, secondaryStyle;
   protected ArrayList <Album> albuns;
+  protected ArrayList <Playlist> playlists;
 
   public Playlist(String name, String primaryStyle, String secondaryStyle) {
     this.name = name;
     this.primaryStyle = primaryStyle;
     this.secondaryStyle = secondaryStyle;
     this.albuns = new ArrayList<>();
+    this.playlists = new ArrayList<>();
   }
 
   public String getName() {
@@ -115,16 +117,32 @@ class Playlist extends Component
     this.albuns.add(album);
   }
 
+  public void add(Playlist playlist) {
+    this.playlists.add(playlist);
+  }
+
   public void remove(Album album) {
     this.albuns.remove(album);
+  }
+
+  public void remove(Playlist playlist) {
+    this.playlists.remove(playlist);
   }
 
   public int getAlbumSize() {
     return this.albuns.size();
   }
 
+  public int getPlaylistSize() {
+    return this.playlists.size();
+  }
+
   public Album getComponent(int componentIndex) {
     return this.albuns.get(componentIndex);
+  }
+
+  public Playlist getComponentPlaylist(int componentIndex) {
+    return this.playlists.get(componentIndex);
   }
 }
 
