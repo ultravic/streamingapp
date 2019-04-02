@@ -1,5 +1,4 @@
 Nome: Victor Picussa
-GRR: 20163068
 
 Os arquivos presentes nesse diretório foram feitos para o trabalho de
 Técnicas Alternativas de Programação (CI062). Para realizar a execução
